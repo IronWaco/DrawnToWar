@@ -40,10 +40,13 @@ public class Telequinesis : MonoBehaviour {
         if (C.tag == "Alzable")
         {
             _rb = C.GetComponent<Rigidbody>();
-            _rb.useGravity=false;
+            
             if (Posible) { 
+                 
                  C.transform.position = Vector3.Lerp(C.transform.position, transform.position, Suavidad);
+                
                  Lanzar = true;
+                _rb.useGravity = false;
                 if (Lanzar && Input.touchCount > 0 )
                 {
                     _rb.AddForce(GetComponentInParent<Transform>().forward * 1000);

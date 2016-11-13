@@ -13,6 +13,7 @@ public class Shoot : MonoBehaviour {
         if (Disparando)
         {
             GameObject Balas = (GameObject)Instantiate(Bala, transform.position, transform.rotation);
+            Destroy(Balas, 5);
         }
 	    
 	}
