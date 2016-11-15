@@ -5,14 +5,16 @@ public class MovimientoBasico : MonoBehaviour {
 
     public float Vel = 10;
 
+
+    public Animator anim;
     float Inicial;
     
-    // Use this for initialization
     void Start () {
         Inicial = Vel;
+        //anim = GetComponent<Animator>();
+        
 	}
 	
-	// Update is called once per frame
 	void Update () {
         if(Input.GetKey(KeyCode.LeftShift))
         {
@@ -25,6 +27,13 @@ public class MovimientoBasico : MonoBehaviour {
         if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
         {
             transform.position = transform.forward * Vel * Time.deltaTime + transform.position;
+            anim.SetBool("Moving",true);
+            
+        }
+        else
+        { 
+            anim.SetBool("Moving", false);
+           // anim.SetFloat("Vel", 0);
         }
         if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
         {
@@ -46,6 +55,7 @@ public class MovimientoBasico : MonoBehaviour {
         {
             transform.position = transform.right * Vel * Time.deltaTime + transform.position;
         }
+        anim.SetFloat("Vel", Vel);
 
     }
 }

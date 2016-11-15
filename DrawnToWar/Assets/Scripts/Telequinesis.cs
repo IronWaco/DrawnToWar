@@ -44,7 +44,7 @@ public class Telequinesis : MonoBehaviour {
             if (Posible) { 
                  
                  C.transform.position = Vector3.Lerp(C.transform.position, transform.position, Suavidad);
-                
+                C.transform.SetParent(gameObject.transform);
                  Lanzar = true;
                 _rb.useGravity = false;
                 if (Lanzar && Input.touchCount > 0 )
@@ -54,6 +54,7 @@ public class Telequinesis : MonoBehaviour {
                     Posible = false;
                     C.tag = "lanzado";
                     VelocidadDeLanzamiento = _rb.velocity;
+                    gameObject.transform.DetachChildren();
                 }
                 bool mouse = Input.GetMouseButtonDown(0);
                 if (mouse)
