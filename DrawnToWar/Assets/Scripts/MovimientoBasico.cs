@@ -5,7 +5,7 @@ public class MovimientoBasico : MonoBehaviour {
 
     public float Vel = 10;
 
-
+    public bool corriendo=false;
     public Animator anim;
     float Inicial;
     
@@ -19,6 +19,7 @@ public class MovimientoBasico : MonoBehaviour {
         if(Input.GetKey(KeyCode.LeftShift))
         {
             Vel = 2*Inicial;
+            
         }
         else
         {
@@ -28,6 +29,10 @@ public class MovimientoBasico : MonoBehaviour {
         {
             transform.position = transform.forward * Vel * Time.deltaTime + transform.position;
             anim.SetBool("Moving",true);
+            if(Vel==2*Inicial)
+            {
+                corriendo = true;
+            }
             
         }
         else
@@ -55,7 +60,8 @@ public class MovimientoBasico : MonoBehaviour {
         {
             transform.position = transform.right * Vel * Time.deltaTime + transform.position;
         }
+        
         anim.SetFloat("Vel", Vel);
-
+        
     }
 }

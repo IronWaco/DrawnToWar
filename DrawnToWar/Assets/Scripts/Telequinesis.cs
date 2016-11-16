@@ -52,7 +52,7 @@ public class Telequinesis : MonoBehaviour {
                     _rb.AddForce(GetComponentInParent<Transform>().forward * 1000);
                     Lanzar = false;
                     Posible = false;
-                    C.tag = "lanzado";
+                    //C.tag = "lanzado";
                     VelocidadDeLanzamiento = _rb.velocity;
                     gameObject.transform.DetachChildren();
                 }
@@ -63,7 +63,8 @@ public class Telequinesis : MonoBehaviour {
                     _rb.AddForce(GetComponentInParent<Transform>().forward*1000);
                     Lanzar = false;
                     Posible = false;
-                    C.tag = "lanzado";
+                    //C.tag = "lanzado";
+                    gameObject.transform.DetachChildren();
                 }
                     
             }
