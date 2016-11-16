@@ -7,13 +7,11 @@ public class Telequinesis : MonoBehaviour
     public float AlzarObjetoSuavidad = 0.05f;
     public GameObject UIIconoAlzable;
     public Transform Lanzador;
-   
 
-
-    public GameObject _posibleObjetoAlzable;
-    public Rigidbody _objetoAlzadoRigidBody;
-    public bool _puedeLanzar;
-    public List<GameObject> _posiblesObjetosAlzables;
+    GameObject _posibleObjetoAlzable;
+    Rigidbody _objetoAlzadoRigidBody;
+    bool _puedeLanzar;
+    List<GameObject> _posiblesObjetosAlzables;
 
     void Start () 
     {
