@@ -1,26 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Danho : MonoBehaviour {
-    public float Danio = 10f;
+public class Danho : MonoBehaviour 
+{
+    public float Cantidad = 10f;
 
-
-	void Start () {
-	
-	}
-	
-	void Update () {
-	
-	}
-
-    void OnTriggerStay(Collider C)
+    void OnTriggerStay(Collider coll)
     {
-        if(C.tag=="Enemy")
+        if(coll.tag=="Enemy")
         {
-            Hit Hit = C.GetComponent<Hit>();
+            Hit Hit = coll.GetComponent<Hit>();
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                Hit.HacerDanho(Danio);
+                Hit.HacerDanho(Cantidad);
             }
         }
     }

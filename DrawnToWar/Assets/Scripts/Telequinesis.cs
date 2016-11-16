@@ -1,88 +1,99 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Telequinesis : MonoBehaviour {
-    public float Suavidad = 0.05f;
-    public GameObject Boton;
-    public Rigidbody _rb;
-    public bool Lanzar=false;
-    //public Movimiento Movimiento;
-    public Vector3 VelocidadDeLanzamiento;
+public class Telequinesis : MonoBehaviour 
+{
+    public float AlzarObjetoSuavidad = 0.05f;
+    public GameObject UIIconoAlzable;
+    public Transform Lanzador;
+   
 
-    bool _posible;
-    public bool Posible
+
+    public GameObject _posibleObjetoAlzable;
+    public Rigidbody _objetoAlzadoRigidBody;
+    public bool _puedeLanzar;
+    public List<GameObject> _posiblesObjetosAlzables;
+
+    void Start () 
     {
-        get { return _posible; }
-        set { _posible = value; }
-    }
-
-    void Start () {
-	
+        _puedeLanzar = false;
+        _posiblesObjetosAlzables = new List<GameObject>();
 	}
 	
-	void Update () {
-        //Posible = Input.GetKey(KeyCode.E);
-        if (Input.GetKeyDown(KeyCode.E))
-            Posible = true;
-            
-    }
-
-
-    void OnTriggerEnter(Collider C)
+	void Update () 
     {
-        if(C.tag=="Alzable")
+        if(Input.GetButtonDown("AlzarObjeto") && _posibleObjetoAlzable != null) // el momento de alzar
         {
-            Boton.SetActive(true);
+            _puedeLanzar = true; 
+            _objetoAlzadoRigidBody = _posibleObjetoAlzable.GetComponent<Rigidbody>();
+            _objetoAlzadoRigidBody.isKinematic = true;
+
+            _posiblesObjetosAlzables.Remove(_posibleObjetoAlzable);
+
+            _posibleObjetoAlzable.transform.position = Lanzador.position;
+            _posibleObjetoAlzable.transform.parent = transform;
+            _posibleObjetoAlzable = null;
         }
-    }
-    void OnTriggerStay(Collider C)
-    {
-        if (C.tag == "Alzable")
+
+        if(Input.GetButtonDown("LanzarObjeto") && _puedeLanzar)
         {
-            _rb = C.GetComponent<Rigidbody>();
-            
-            if (Posible) { 
-                 
-                 C.transform.position = Vector3.Lerp(C.transform.position, transform.position, Suavidad);
-                C.transform.SetParent(gameObject.transform);
-                 Lanzar = true;
-                _rb.useGravity = false;
-                if (Lanzar && Input.touchCount > 0 )
-                {
-                    _rb.AddForce(GetComponentInParent<Transform>().forward * 1000);
-                    Lanzar = false;
-                    Posible = false;
-                    //C.tag = "lanzado";
-                    VelocidadDeLanzamiento = _rb.velocity;
-                    gameObject.transform.DetachChildren();
-                }
-                bool mouse = Input.GetMouseButtonDown(0);
-                if (mouse)
-                {
-                    
-                    _rb.AddForce(GetComponentInParent<Transform>().forward*1000);
-                    Lanzar = false;
-                    Posible = false;
-                    //C.tag = "lanzado";
-                    gameObject.transform.DetachChildren();
-                }
-                    
+            _objetoAlzadoRigidBody.transform.parent.DetachChildren();
+            _objetoAlzadoRigidBody.isKinematic = false;
+            _objetoAlzadoRigidBody.AddForce(Lanzador.forward * 1000);
+            _puedeLanzar = false;
+
+            if(_posiblesObjetosAlzables.Count > 0) 
+            {
+                _posibleObjetoAlzable = _posiblesObjetosAlzables[0];
             }
+        }
             
-        }
 
+        // TODO: codificar alzando objeto: coll.transform.position = Vector3.Lerp(coll.transform.position, transform.position, AlzarObjetoSuavidad);
+            
     }
-    void OnTriggerExit(Collider C)
+
+
+    void OnTriggerEnter(Collider coll)
     {
-        if (C.tag == "Alzable" || C.tag == "lanzado")
-            { 
-            Boton.SetActive(false);
-            Posible = false;
-            C.tag = "Alzable";
-            _rb.useGravity = true;
+        if(coll.tag=="Alzable")
+        {
+            if(UIIconoAlzable != null) {
+                UIIconoAlzable.SetActive(true);
+            }
+
+            if(_posiblesObjetosAlzables.IndexOf(coll.gameObject) == -1) {
+                _posiblesObjetosAlzables.Add(coll.gameObject);
+                if(_posiblesObjetosAlzables.Count == 1){
+                    _posibleObjetoAlzable = coll.gameObject;    
+                }
+            }
+
+
         }
     }
-    
+
+
+    void OnTriggerExit(Collider coll)
+    {
+        if(coll.tag=="Alzable")
+        {
+            if(UIIconoAlzable != null) {
+                UIIconoAlzable.SetActive(false);
+            }
+
+            if(_posiblesObjetosAlzables.IndexOf(coll.gameObject) != -1) {
+                _posiblesObjetosAlzables.Remove(coll.gameObject);
+
+                if(_posiblesObjetosAlzables.Count == 0){
+                    _posibleObjetoAlzable = null;
+                } else if(coll.gameObject == _posibleObjetoAlzable) {
+                    _posibleObjetoAlzable = _posiblesObjetosAlzables[0];
+                }
+            }
+        }
+    }
 
 
 }
