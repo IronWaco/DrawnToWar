@@ -6,13 +6,13 @@ public class MovimientoBasico : MonoBehaviour
     public float VelocidadMaximaCaminar = 1;
     public float VelocidadMaximaCorrer = 3;
     public float GradosRotacion  = 3;
+    public DetectorAdelante DetectorAdelante;
 
 
 
 
     public bool corriendo=false;
-    public Animator _anim;
-//    float Inicial;
+    Animator _anim;
 
 
 
@@ -27,6 +27,8 @@ public class MovimientoBasico : MonoBehaviour
         //anim = GetComponent<Animator>();
         
 	}
+
+    public float Vel;
 	
 	void Update () 
     {
@@ -36,6 +38,10 @@ public class MovimientoBasico : MonoBehaviour
         float velMaxima = VelocidadMaximaCaminar;
         if(Input.GetButton("Correr")){
             velMaxima = VelocidadMaximaCorrer;
+        }
+
+        if(Input.GetButtonDown("Golpear")){
+            _anim.SetTrigger("Golpear");
         }
 
         _agente.velocity = transform.forward * (v * velMaxima);
@@ -58,6 +64,15 @@ public class MovimientoBasico : MonoBehaviour
     {
         _agente.enabled = true;
         _anim.applyRootMotion = false;
+    }
+
+
+    public void RecibirGolpe()
+    {
+        if(DetectorAdelante.Enemigo != null)
+        {
+            DetectorAdelante.Enemigo.GetComponent<Enemigo>().RecibirGolpe(10);
+        }
     }
 
 }

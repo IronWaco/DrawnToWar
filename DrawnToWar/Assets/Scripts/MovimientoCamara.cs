@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MovimientoCamara : MonoBehaviour {
+public class MovimientoCamara : MonoBehaviour 
+{
     public float verticalSpeed = 2.0F;
     public float horizontalSpeed = 2.0F;
     public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
@@ -13,26 +14,18 @@ public class MovimientoCamara : MonoBehaviour {
     public float minimumY = -60F;
     public float maximumY = 60F;
 
-
     float rotationY = 0F;
-    //public GameObject Parent;
 
-    // Use this for initialization
     void Start () {
-        //if (rigidbody)
-        // rigidbody.freezeRotation = true;
-       // Parent = GetComponentInParent<Transform>();
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-        //float h = horizontalSpeed * Input.GetAxis("Mouse X");
-        //float v = verticalSpeed * Input.GetAxis("Mouse Y");
-        //transform.Rotate(v, h, 0);
         if (axes == RotationAxes.MouseXAndY)
         {
             float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
+            rotationX = Mathf.Clamp(rotationX, maximumX, minimumX);
 
             rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
             rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
@@ -51,7 +44,6 @@ public class MovimientoCamara : MonoBehaviour {
 
             transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
         }
-        //Parent.transform.rotation = transform.rotation;
     }
     
 }
