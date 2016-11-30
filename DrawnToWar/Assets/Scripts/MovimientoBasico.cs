@@ -22,11 +22,11 @@ public class MovimientoBasico : MonoBehaviour
 
         _agente = GetComponent<NavMeshAgent>();
         _anim = GetComponent<Animator>();
-
+        DetectorAdelante = GetComponentInChildren<DetectorAdelante>();
         //Inicial = Vel;
         //anim = GetComponent<Animator>();
-        
-	}
+
+    }
 
     public float Vel;
 	
