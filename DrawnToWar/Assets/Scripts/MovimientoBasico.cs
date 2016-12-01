@@ -69,9 +69,9 @@ public class MovimientoBasico : MonoBehaviour
 
     public void RecibirGolpe()
     {
-        if(DetectorAdelante.Enemigo != null)
+        if(DetectorAdelante.Personaje != null)
         {
-            DetectorAdelante.Enemigo.GetComponent<Enemigo>().RecibirGolpe(10);
+            DetectorAdelante.Personaje.GetComponent<Enemigo>().RecibirGolpe(10);
         }
     }
 

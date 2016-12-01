@@ -3,21 +3,26 @@ using System.Collections;
 
 public class DetectorAdelante : MonoBehaviour 
 {
-    public GameObject Enemigo;
+    public enum TipoPersonaje {Enemy, Player};
+
+   
+    public TipoPersonaje Tipo;
+    public GameObject Personaje;
+
 
     void OnTriggerEnter(Collider coll)
     {
-        if(coll.tag=="Enemy")
+        if(coll.tag==Tipo.ToString())
         {
-            Enemigo = coll.gameObject;
+            Personaje = coll.gameObject;
         }
     }
 
     void OnTriggerExit(Collider coll)
     {
-        if(coll.tag=="Enemy")
+        if(coll.tag==Tipo.ToString())
         {
-            Enemigo = null;
+            Personaje = null;
         }
     }
 }

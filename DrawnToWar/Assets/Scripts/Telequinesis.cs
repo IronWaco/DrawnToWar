@@ -46,6 +46,8 @@ public class Telequinesis : MonoBehaviour
                 _posibleObjetoAlzable = _posiblesObjetosAlzables[0];
             }
         }
+
+        Lanzador.rotation = Camera.main.transform.rotation;
             
 
         // TODO: codificar alzando objeto: coll.transform.position = Vector3.Lerp(coll.transform.position, transform.position, AlzarObjetoSuavidad);

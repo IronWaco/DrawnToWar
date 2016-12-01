@@ -4,20 +4,45 @@ using System.Collections;
 public class Enemigo : MonoBehaviour 
 {
     Animator _anim;
+    DetectorAdelante _detectorAdelante;
     public float _hp;
+    public RectTransform UISalud;
 
-    void Start () {
+
+
+    [HideInInspector]
+    public bool DandoGolpe;
+
+
+    void Start () 
+    {
         _anim = GetComponent<Animator>();
+        _detectorAdelante = GetComponentInChildren<DetectorAdelante>();
         _hp = 100;
+        DandoGolpe = false;
+
+        StartCoroutine(CicloGolpe());
     }
+
+
 	
-	void Update () {
+	void Update () 
+    {
         if (_hp <= 0)
         {
             _anim.SetTrigger("Muerto");
             Destroy(gameObject, 3);
         }
+
+        UISalud.localScale = new Vector3((_hp/100f), 1, 1);
+
+
+
+        HayAlguien = (_detectorAdelante.Personaje != null);
+        PuedeDarGolpe = (DandoGolpe == false);
     }
+
+
     void OnTriggerEnter(Collider C)
     {
         if (C.tag == "Alzable")
@@ -28,15 +53,40 @@ public class Enemigo : MonoBehaviour
 
         }
     }
+
+
     public void HacerDanho(float Danho)
     {
         _hp = _hp - Danho;
     }
+
+
 
     public void  RecibirGolpe(int cantidadDanho)
     {
         _hp = _hp - cantidadDanho;
         _anim.SetTrigger("Golpe");
         
+    }
+
+
+    public void DarGolpe(GameObject player)
+    {
+        
+    }
+
+    public bool HayAlguien;
+    public bool PuedeDarGolpe;
+
+
+    IEnumerator CicloGolpe()
+    {
+        while(true) {
+            yield return new WaitUntil( () => {
+                return HayAlguien && PuedeDarGolpe;
+            });
+        
+            _anim.SetTrigger("DarGolpe");
+        }
     }
 }
