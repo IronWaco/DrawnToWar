@@ -4,6 +4,7 @@ using System.Collections;
 public class Enemigo : MonoBehaviour 
 {
     Animator _anim;
+    NavMeshAgent _agent;
     DetectorAdelante _detectorAdelante;
     public float _hp;
     public RectTransform UISalud;
@@ -20,7 +21,7 @@ public class Enemigo : MonoBehaviour
         _detectorAdelante = GetComponentInChildren<DetectorAdelante>();
         _hp = 100;
         DandoGolpe = false;
-
+        _agent = GetComponent<NavMeshAgent>();
         StartCoroutine(CicloGolpe());
     }
 
@@ -30,6 +31,7 @@ public class Enemigo : MonoBehaviour
     {
         if (_hp <= 0)
         {
+            _agent.enabled = false;
             _anim.SetTrigger("Muerto");
             Destroy(gameObject, 3);
         }
