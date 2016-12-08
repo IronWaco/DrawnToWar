@@ -23,7 +23,7 @@ public class DetectarPlayer : MonoBehaviour
             if(_agent.enabled) {
                 _agent.speed = 2;
                 _agent.SetDestination(C.transform.position);
-                
+                //_anim.SetTrigger("DarGolpe");
             }
         }
     }

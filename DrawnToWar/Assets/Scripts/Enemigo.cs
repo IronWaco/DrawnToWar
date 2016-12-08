@@ -7,7 +7,7 @@ public class Enemigo : MonoBehaviour
     NavMeshAgent _agent;
     DetectorAdelante _detectorAdelante;
     public float _hp;
-    public RectTransform UISalud;
+    //public RectTransform UISalud;
 
 
 
@@ -36,7 +36,7 @@ public class Enemigo : MonoBehaviour
             Destroy(gameObject, 3);
         }
 
-        UISalud.localScale = new Vector3((_hp/100f), 1, 1);
+       // UISalud.localScale = new Vector3((_hp/100f), 1, 1);
 
 
 
@@ -74,6 +74,7 @@ public class Enemigo : MonoBehaviour
 
     public void DarGolpe(GameObject player)
     {
+
         
     }
 
