@@ -14,7 +14,7 @@ public class Valla : MonoBehaviour
             NavMeshAgent agente = coll.GetComponent<NavMeshAgent>();
             if(agente.velocity.magnitude >= VelocidadSalto) 
             {
-                Debug.Log("Saltar");
+                //Debug.Log("Saltar");
 
                 MovimientoBasico mov = coll.GetComponent<MovimientoBasico>();
                 mov.Saltar();

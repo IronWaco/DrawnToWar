@@ -8,7 +8,7 @@ public class MovimientoBasico : MonoBehaviour
     public float GradosRotacion  = 3;
     public DetectorAdelante DetectorAdelante;
 
-
+    public float _hp;
 
 
     public bool corriendo=false;
@@ -23,6 +23,7 @@ public class MovimientoBasico : MonoBehaviour
         _agente = GetComponent<NavMeshAgent>();
         _anim = GetComponent<Animator>();
         DetectorAdelante = GetComponentInChildren<DetectorAdelante>();
+        _hp = 100;
         //Inicial = Vel;
         //anim = GetComponent<Animator>();
 
@@ -74,5 +75,12 @@ public class MovimientoBasico : MonoBehaviour
             DetectorAdelante.Personaje.GetComponent<Enemigo>().RecibirGolpe(10);
         }
     }
+    public void Danho(int D)
+    {
+        _hp = _hp - D;
+        _anim.SetTrigger("Golpeado");
+
+    }
+
 
 }
