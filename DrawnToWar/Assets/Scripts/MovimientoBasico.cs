@@ -50,6 +50,14 @@ public class MovimientoBasico : MonoBehaviour
         _anim.SetFloat("Vel",v * velMaxima);
 
         transform.Rotate(0, h * GradosRotacion, 0);
+        if(_hp<=0)
+        {
+            _anim.SetTrigger("Muerto");
+            
+            _agente.enabled = false;
+
+
+        }
     }
 
 

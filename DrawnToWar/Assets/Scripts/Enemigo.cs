@@ -92,4 +92,12 @@ public class Enemigo : MonoBehaviour
             _anim.SetTrigger("DarGolpe");
         }
     }
+    public void Danho()
+    {
+        if (HayAlguien)
+        {
+            MovimientoBasico Mb= _detectorAdelante.Personaje.GetComponent<MovimientoBasico>();
+            Mb.Danho(10);
+        }
+    }
 }
