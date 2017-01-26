@@ -53,7 +53,6 @@ public class MovimientoBasico : MonoBehaviour
         if(_hp<=0)
         {
             _anim.SetTrigger("Muerto");
-            
             _agente.enabled = false;
 
 
